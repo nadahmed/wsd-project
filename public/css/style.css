@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+html, body{
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
+    background-color: rgb(19, 25, 38);
+    color:white;
+}
+
+.file-content{
+    border: 1px solid white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px;
+    background-color: rgb(13, 18, 28);
+}
+
+.file-content.result {
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: rgb(13, 18, 28);
+}

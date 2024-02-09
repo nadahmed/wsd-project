@@ -1,48 +1,43 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { UploadedFile, UseInterceptors, FileTypeValidator, Controller, Get, Post, Render, Req, ParseFilePipe, Redirect, Res } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Request, Response } from 'express';
+
+const parserPipe = new ParseFilePipe({
+  validators: [
+    new FileTypeValidator({fileType:'text/plain'})
+  ]
+})
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  getHello(): Object {
+    return { 
+      title: 'Text Analyzer'
+    };
   }
 
-  @Get("/no_of_words")
-  getNumberOfWords(): number {
-    const text = "The quick brown fox jumps over the lazy dog. The lazy dog slept in the sun.";
-    return this.appService.getNoOfWords(text);
-  }
-
-  @Get("/no_of_characters")
-  getNumberOfCharacters(): number {
-    const text = "The quick brown fox jumps over the lazy dog. The lazy dog slept in the sun.";
-    return this.appService.getNoOfCharacters(text);
-  }
-
-  @Get("/no_of_sentences")
-  getNumberOfSentences(): number {
-    const text = "The quick brown fox jumps over the lazy dog. The lazy dog slept in the sun.";
-    return this.appService.getNoOfSentences(text);
-  }
-
-  @Get("/no_of_paragraphs")
-  getNoOfParagraphs():number{
-    const text = `
-    Assume that your company assigned you to build a text analyzer tool. Your task will be to create an application that reads from a text file and calculates some parameters.
-    The scripts should calculate the count of words, characters, paragraphs, and more of the text written in the file. You may assume that the file contains only English words separated by whitespace.
-    `
-    return this.appService.getNoOfParagraphs(text);
-  }
-
-  @Get("/longest_word")
-  getLongestWord():string{
-    const text = `
-    Assume that your company assigned you to build a text analyzer tool. Your task will be to create an application that reads from a text file and calculates some parameters.
-    The scripts should calculate the count of words, characters, paragraphs, and more of the text written in the file. You may assume that the file contains only English words separated by whitespace.
-    `
-    return this.appService.getLongestWord(text);
+  @Post()
+  @UseInterceptors(FileInterceptor('file'))
+  async postHello(@Req() request:Request, @Res() response:Response, @UploadedFile(parserPipe) file:Express.Multer.File) {
+    const text = file.buffer.toString();
+    request.session['content'] = text;
+    
+    try {
+      await new Promise<void>((res, rej) => {
+        request.session.save((err) => {
+          if (!!err) {
+            return rej(err);
+          }
+          response.status(302).redirect('/resource');
+          return res();
+        });
+      });
+    } catch (e) {
+      return response.status(500).send('An error occurred while saving the session. Please try again later.');
+    }
   }
 }
+

@@ -1,0 +1,20 @@
+{% extends 'base.njk' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center flex-column vh-100" style="gap: 2rem;">
+        <div>
+            <h1>Welcome to Text Analyzer</h1>
+            <p>Upload a file to analyze its content.</p>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="input-group">
+            <input type="file" accept="text/plain" name="file" class="form-control" aria-describedby="inputGroupFile" aria-label="Upload" required>
+            <button class="btn btn-outline-secondary" type="submit" id="inputGroupFile">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
