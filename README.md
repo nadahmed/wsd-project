@@ -12,11 +12,11 @@ An demo project for WSD using the [Nest](https://github.com/nestjs/nest) framewo
 
 2. Upload a .txt file. You should be redirect to the resource page.
 
-    ![alt text](https://github.com/nadahmed/wsd-project/blob/main/image.jpg?raw=true)
+    ![alt text](https://github.com/nadahmed/wsd-project/blob/main/screenshots/home_page.png?raw=true)
 
 3. On the resource page click on any action button to see the analyzed result.
 
-    ![alt text](https://github.com/nadahmed/wsd-project/blob/main/image.jpg?raw=true)
+    ![alt text](https://github.com/nadahmed/wsd-project/blob/main/screenshots/resource_page.png?raw=true)
 
 ## Running with Docker Compose
 
