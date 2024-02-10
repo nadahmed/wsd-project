@@ -2,11 +2,14 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ResourceService {
-    getWords(text:string): string[]{
+
+      getWords(text:string): string[]{
         return text
-        .trim()
-        .replaceAll(".","")
+        .replaceAll("."," ")
+        .replaceAll(","," ")
         .split(" ")
+        .map(s => s.trim())
+        .filter(s => s !== "");
       }
     
       getNoOfWords(text: string): number {
@@ -15,22 +18,30 @@ export class ResourceService {
       }
     
       getNoOfCharacters(text: string): number {
-        return text.length; // including spaces
+        // Remove all spaces and punctuation marks from the text and return the length of the remaining string
+        return text.replaceAll(/\r?\n|\r/g,"").length;
+
       }
     
       getNoOfSentences(text: string): number {
-        return text.split(".").filter(s => s !== "").length;
+        return text.split(".").filter(s => s.trim() !== "").length;
       }
     
       getNoOfParagraphs(text:string):number {
-        return text.trim().split('\n').filter(s => s !== "").length;
+        return text.trim().split('\n').filter(s => s.trim() !== "").length;
       }
     
       getLongestWords(text:string):string[]{
-        const arr:string[][] = [];
+        const longest:string[] = [];
+        let max = 0;
         this.getWords(text).forEach(word => {
-          arr[word.length-1] ? arr[word.length-1].push(word) : arr[word.length-1] = [word];
+          if(word.length > max){
+            max = word.length;
+            longest.splice(0, longest.length, word);
+          } else if (word.length === max){
+            longest.push(word);
+          }
         });
-        return arr[arr.length-1];
+        return longest;
       }
 }

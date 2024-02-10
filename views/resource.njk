@@ -1,16 +1,15 @@
 {% extends 'base.njk' %}
-{% block title %}File Analyzer{% endblock %}
+{% block title %}Resource{% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="d-flex justify-content-center align-items-center flex-column vh-100" style="gap: 2rem;">
-
+    <div class="d-flex justify-content-center align-items-center flex-column vh-min-100 my-5" style="gap: 2rem;">
         <div>
             <h3>File Content:</h3>
-            <p class="file-content">{{content}}</p>
+            <pre class="file-content">{{content}}</pre>
         </div>
 
-        <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="btn-group-vertical" role="group" aria-label="Basic example">
             {% for item in apiList %}
                 <a href="{{item.url}}" type="button" class="action btn btn-outline-secondary text-white">{{item.name}}</a>
             {% endfor %}
@@ -18,7 +17,7 @@
 
         <div>
             <h3>Result:</h3>
-            <p class="file-content result">-</p>
+            <p class="result">-</p>
         </div>
 
         <a href="/" class="btn btn-secondary">
@@ -30,7 +29,6 @@
 {% endblock %}
 
 {% block script %}
-{# Import axios #}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script defer src="/js/resource.js"></script>

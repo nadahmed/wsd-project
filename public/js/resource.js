@@ -9,11 +9,12 @@ btns.forEach(btn => {
         e.target.classList.add('active');
         const href = e.target.getAttribute('href');
         const res = await axios.get(`${href}`);
-        console.log(res.status);
-        if (res.status === 302 || res.status === 301) {
-            window.location.href = res.request.responseURL;
+
+        if (Array.isArray(res.data)) {
+            result.textContent = res.data.join(', ');
             return;
         }
+
         result.textContent = res.data;
     });
 });

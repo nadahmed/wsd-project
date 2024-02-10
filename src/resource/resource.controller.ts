@@ -2,14 +2,17 @@ import { Controller, UseGuards, ParseFilePipe, FileTypeValidator, Get, Render, R
 import { ResourceGuard } from './resource.guard';
 import { ResourceService } from './resource.service';
 import { Request } from 'express';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 
 @Controller('resource')
 @UseGuards(ResourceGuard)
 export class ResourceController {
 
     constructor(private readonly resourceService: ResourceService) {}
-
+    
     @Get("/")
+    @ApiExcludeEndpoint()
+    @ApiTags('resource')
     @Render('resource')
     root(@Req() request:Request): Object {
         const text = request.session['content'];

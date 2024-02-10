@@ -7,18 +7,27 @@ html, body{
     color:white;
 }
 
+pre.file-content {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
 .file-content{
+    max-width: 100%;
     border: 1px solid white;
+    text-align: left;
     padding: 20px;
     border-radius: 10px;
     margin: 20px;
     background-color: rgb(13, 18, 28);
 }
 
-.file-content.result {
-    border: 1px solid white;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 10px;
-    background-color: rgb(13, 18, 28);
+.result {
+    max-width: 100%;
+    font-size: 100%;
+    /* wrap text */
+    word-wrap: break-word;
 }

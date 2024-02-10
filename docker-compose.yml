@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: wsd-admin
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: wsd-db
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: "production"
+      SESSION_SECRET: "your-session-secret"
+      DATABASE_URL: postgres://wsd-admin:mysecretpassword@postgres:5432/wsd-db
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:
+
+networks:
+  backend:
+    driver: bridge

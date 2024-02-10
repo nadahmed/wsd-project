@@ -1,0 +1,23 @@
+# Ignore node_modules folder
+node_modules
+
+# Ignore build output
+dist
+
+# Ignore SQLite database file
+*.sqlite
+
+# Ignore NestJS configuration files
+.env
+.env.*
+.env.local
+.env.development
+.env.development.local
+.env.production
+.env.production.local
+.env.test
+.env.test.local
+
+# Ignore NestJS logs
+logs
+*.log
